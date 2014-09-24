@@ -246,9 +246,9 @@ class TunnelServices(object):
     def __init__(self):
         config = PsiturkConfig()
         config.load_config()
-        self.access_key = config.get('psiTurk Access', 'psiturk_access_key_id')
-        self.secret_key = config.get('psiTurk Access', 'psiturk_secret_access_id')
-        self.local_port = config.getint('Server Parameters', 'port')
+        self.access_key = os.environ['psiturk_access_key_id']
+        self.secret_key = os.environ['psiturk_secret_access_id']
+        self.local_port = os.environ["PORT"]
         self.is_open = False
         self.tunnel_port = 8000  # Set by tunnel server
         self.tunnel_host = 'tunnel.psiturk.org'

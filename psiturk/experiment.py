@@ -316,8 +316,8 @@ def give_consent():
 
 def get_ad_via_hitid(hit_id):
     ''' Get ad via HIT id '''
-    username = CONFIG.get('psiTurk Access', 'psiturk_access_key_id')
-    password = CONFIG.get('psiTurk Access', 'psiturk_secret_access_id')
+    username = os.environ['psiturk_access_key_id']
+    password = os.environ['psiturk_secret_access_id']
     try:
         req = requests.get('https://api.psiturk.org/api/ad/lookup/' + hit_id,
                            auth=(username, password))
@@ -668,7 +668,7 @@ def regularpage(foldername=None, pagename=None):
 def run_webserver():
     ''' Run web server '''
     host = "0.0.0.0"
-    port = CONFIG.getint('Server Parameters', 'port')
+    port = os.environ['PORT']
     print "Serving on ", "http://" +  host + ":" + str(port)
     app.run(debug=True, host=host, port=port)
 

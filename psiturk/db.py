@@ -5,10 +5,12 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from psiturk_config import PsiturkConfig
 
+import os
+
 config = PsiturkConfig()
 config.load_config()
 
-DATABASE = config.get('Database Parameters', 'database_url')
+DATABASE = os.environ['DATABASE_URL']
 
 engine = create_engine(DATABASE, echo=False) 
 db_session = scoped_session(sessionmaker(autocommit=False,
