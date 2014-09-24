@@ -56,7 +56,7 @@ class ExperimentServer(Application):
         self.loglevels = ["debug", "info", "warning", "error", "critical"]
 
         self.user_options = {
-            'bind': config.get("Server Parameters", "host") + ":" + config.get("Server Parameters", "port"),
+            'bind': config.get("Server Parameters", "host") + ":" + os.getenv('PORT', config.get("Server Parameters", "port")),
             'workers': workers,
             'loglevels': self.loglevels,
             'loglevel': self.loglevels[config.getint("Server Parameters", "loglevel")],
