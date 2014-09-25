@@ -6,6 +6,7 @@ from psiturk_config import PsiturkConfig
 import sys
 import setproctitle
 import os
+import logging
 
 config = PsiturkConfig()
 config.load_config()
@@ -24,6 +25,8 @@ class ExperimentServer(Application):
         self.callable = None
         self.options = self.user_options
         self.prog = None
+        self.logger = logging.getLogger()
+        self.logger.setLevel(logging.DEBUG)
         self.do_load_config()
         if 'OPENSHIFT_SECRET_TOKEN' in os.environ:
             my_ip = os.environ['OPENSHIFT_APP_DNS']
@@ -60,8 +63,8 @@ class ExperimentServer(Application):
             'workers': workers,
             'loglevels': self.loglevels,
             'loglevel': self.loglevels[config.getint("Server Parameters", "loglevel")],
-            # 'accesslog': config.get("Server Parameters", "logfile"),
-            'errorlog': config.get("Server Parameters", "logfile"),
+            'accesslog': '-',
+            'errorlog': '-',
             'proc_name': 'psiturk_experiment_server'
         }
 
