@@ -250,11 +250,12 @@ var PsiTurk = function(uniqueId, adServerLoc, mode) {
 
 	// Add bonus to task data
 	self.computeBonus = function(url, callback) {
-		$.ajax(url, {
-                    type: "GET",
-                    data: {uniqueId: self.taskdata.id},
-                    success: callback
-                });
+		callback();
+		// $.ajax(url, {
+  //                   type: "GET",
+  //                   data: {uniqueId: self.taskdata.id},
+  //                   success: callback
+  //               });
 	};
 	
 	// Save data to server
