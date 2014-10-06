@@ -394,14 +394,7 @@ class PsiturkShell(Cmd, object):
 
     def do_quit(self, _):
         ''' Execute on quit '''
-        if (self.server.is_server_running() == 'yes' or
-                self.server.is_server_running() == 'maybe'):
-            user_input = raw_input("Quitting shell will shut down experiment \
-                server.  Really quit? y or n: ")
-            if user_input == 'y':
-                self.server_off()
-            else:
-                return
+        self.server_off()
         return True
 
     @docopt_cmd
@@ -513,17 +506,14 @@ class PsiturkNetworkShell(PsiturkShell):
         self.psiturk_header = 'psiTurk command help:'
         self.super_header = 'basic CMD command help:'
 
+        # Automatically restart the server when the shell is initialized
+        self.server_restart()
+
+
     def do_quit(self, arg):
         '''Override do_quit for network clean up.'''
-        if (self.server.is_server_running() == 'yes' or
-                self.server.is_server_running() == 'maybe'):
-            user_input = raw_input("Quitting shell will shut down experiment \
-                server. Really quit? y or n: ")
-            if user_input == 'y':
-                self.server_off()
-                self.clean_up()
-            else:
-                return
+        self.server_off()
+        self.clean_up()
         return True
 
     def server_off(self):
