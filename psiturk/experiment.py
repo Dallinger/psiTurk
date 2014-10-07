@@ -72,6 +72,7 @@ try:
 except ImportError:
     app.logger.info("Hmm... it seems no custom code (custom.py) assocated \
                     with this project.")
+    raise
 else:
     app.register_blueprint(custom_code)
 
