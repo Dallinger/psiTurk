@@ -1765,12 +1765,12 @@ def run(cabinmode=False, script=None):
         shell.check_offline_configuration()
     else:
         amt_services = MTurkServices(
-            os.getenv('aws_access_key_id', config.get("psiTurk Access", "aws_access_key_id")),
-            os.getenv('aws_secret_access_key', config.get("psiTurk Access", "aws_secret_access_key")),
+            os.getenv('aws_access_key_id', config.get("AWS Access", "aws_access_key_id")),
+            os.getenv('aws_secret_access_key', config.get("AWS Access", "aws_secret_access_key")),
             config.getboolean('Shell Parameters', 'launch_in_sandbox_mode'))
         aws_rds_services = RDSServices(
-            os.getenv('aws_access_key_id', config.get("psiTurk Access", "aws_access_key_id")),
-            os.getenv('aws_secret_access_key', config.get("psiTurk Access", "aws_secret_access_key")),
+            os.getenv('aws_access_key_id', config.get("AWS Access", "aws_access_key_id")),
+            os.getenv('aws_secret_access_key', config.get("AWS Access", "aws_secret_access_key")),
             config.get('AWS Access', 'aws_region'))
         web_services = PsiturkOrgServices(
             os.getenv('psiturk_access_key_id', config.get("psiTurk Access", "psiturk_access_key_id")),
