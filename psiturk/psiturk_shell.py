@@ -266,7 +266,7 @@ class PsiturkShell(Cmd, object):
             + "/ad"
         else:
             base_url = "http://" + self.config.get('Server Parameters', 'host')\
-            + ":" + os.environ['PORT'] + "/ad"
+            + ":" + os.getenv('PORT', config.get("Server Parameters", "port")) + "/ad"
 
         launch_url = base_url + "?assignmentId=debug" \
             + str(self.random_id_generator()) + "&hitId=debug" \
@@ -935,10 +935,10 @@ class PsiturkNetworkShell(PsiturkShell):
             port = str(self.tunnel.tunnel_port)  # Set by tunnel server.
         else:
             ip_address = str(self.web_services.get_my_ip())
-            port = str(os.environ['PORT'])
+            port = str(os.getenv('PORT', self.config.get("Server Parameters", "port")))
         ad_content = {
             'psiturk_external': True,
-            'server': os.environ['HOST'],
+            'server': os.getenv('HOST', self.config.get("Server Parameters", "host")),
             'port': 80,
             'browser_exclude_rule': str(self.config.get('HIT Configuration', 'browser_exclude_rule')),
             'is_sandbox': int(self.sandbox),
@@ -1643,11 +1643,11 @@ class PsiturkNetworkShell(PsiturkShell):
         else:
             base_url = "http://" + self.config.get('Server Parameters',
                                                    'host') + \
-                ":" + os.environ['PORT'] + "/ad"
+                ":" + os.getenv('PORT', self.config.get("Server Parameters", "port")) + "/ad"
 
         my_ip = self.web_services.get_my_ip()
         remote_url = "http://" + my_ip + ":" + \
-            os.environ['PORT'] + "/ad"
+            os.getenv('PORT', self.config.get("Server Parameters", "port")) + "/ad"
 
         launch_url = base_url + "?assignmentId=debug" + \
             str(self.random_id_generator()) \
@@ -1765,16 +1765,16 @@ def run(cabinmode=False, script=None):
         shell.check_offline_configuration()
     else:
         amt_services = MTurkServices(
-            os.environ['aws_access_key_id'], \
-            os.environ['aws_secret_access_key'],
+            os.getenv('aws_access_key_id', CONFIG.get("psiTurk Access", "aws_access_key_id")),
+            os.getenv('aws_secret_access_key', CONFIG.get("psiTurk Access", "aws_secret_access_key")),
             config.getboolean('Shell Parameters', 'launch_in_sandbox_mode'))
         aws_rds_services = RDSServices(
-            os.environ['aws_access_key_id'], \
-            os.environ['aws_secret_access_key'],
+            os.getenv('aws_access_key_id', CONFIG.get("psiTurk Access", "aws_access_key_id")),
+            os.getenv('aws_secret_access_key', CONFIG.get("psiTurk Access", "aws_secret_access_key")),
             config.get('AWS Access', 'aws_region'))
         web_services = PsiturkOrgServices(
-            os.environ['psiturk_access_key_id'],
-            os.environ['psiturk_secret_access_id'])
+            os.getenv('psiturk_access_key_id', CONFIG.get("psiTurk Access", "psiturk_access_key_id")),
+            os.getenv('psiturk_secret_access_id', CONFIG.get("psiTurk Access", "psiturk_secret_access_id")))
         shell = PsiturkNetworkShell(
             config, amt_services, aws_rds_services, web_services, server, \
             config.getboolean('Shell Parameters', 'launch_in_sandbox_mode'))

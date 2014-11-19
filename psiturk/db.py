@@ -10,9 +10,10 @@ import os
 config = PsiturkConfig()
 config.load_config()
 
-DATABASE = os.environ['DATABASE_URL']
+DATABASE = os.getenv("DATABASE_URL",
+                     config.get("Database Parameters", "database_url"))
 
-engine = create_engine(DATABASE, echo=False) 
+engine = create_engine(DATABASE, echo=False)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
