@@ -97,7 +97,7 @@ class ExperimentServerController:
 
     def get_ppid(self):
         if not self.is_port_available():
-            url = "http://{hostname}:{port}/ppid".format(hostname=self.config.get("Server Parameters", "host"), port=os.getenv('PORT', config.get("Server Parameters", "port")))
+            url = "http://{hostname}:{port}/ppid".format(hostname=self.config.get("Server Parameters", "host"), port=os.getenv('PORT', self.config.get("Server Parameters", "port")))
             ppid_request = urllib2.Request(url)
             ppid =  urllib2.urlopen(ppid_request).read()
             return ppid
