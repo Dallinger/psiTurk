@@ -60,9 +60,10 @@ class ExperimentServer(Application):
             'workers': workers,
             'loglevels': self.loglevels,
             'loglevel': self.loglevels[config.getint("Server Parameters", "loglevel")],
-            # 'accesslog': config.get("Server Parameters", "logfile"),
+            'accesslog': config.get("Server Parameters", "logfile"),
             'errorlog': config.get("Server Parameters", "logfile"),
-            'proc_name': 'psiturk_experiment_server'
+            'proc_name': 'psiturk_experiment_server',
+            'limit_request_line': '0'
         }
 
 def launch():
