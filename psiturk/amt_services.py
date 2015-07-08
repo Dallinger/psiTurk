@@ -636,7 +636,7 @@ class MTurkServices(object):
 
             self.mtc.extend_hit(
                 hitid,
-                expiration_increment=int(float(expiration_increment or 0)*60))
+                expiration_increment=int(float(expiration_increment or 0)*3600))
 
             print "got here 5"
 
