@@ -12,6 +12,7 @@ from boto.mturk.qualification import LocaleRequirement, \
 from flask import jsonify
 import re as re
 from psiturk.psiturk_config import PsiturkConfig
+import traceback
 
 
 MYSQL_RESERVED_WORDS_CAP = [
@@ -643,6 +644,9 @@ class MTurkServices(object):
         except Exception, e:
             print "Failed to extend HIT %s. Please check the ID and try again." \
                 % hitid
+
+            print(traceback.format_exc())
+
             return False
 
     def get_hit_status(self, hitid):
