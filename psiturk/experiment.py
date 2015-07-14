@@ -22,7 +22,7 @@ from flask import Flask, render_template, render_template_string, request, \
     jsonify
 
 # Setup database
-from db import db_session, init_db
+from db import db_session
 from models import Participant
 from sqlalchemy import or_, exc
 
@@ -78,8 +78,6 @@ try:
 except ImportError:
     app.logger.info("Hmm... it seems no custom model code (custom_models.py) \
                     assocated with this project.")
-
-init_db()
 
 
 # Read psiturk.js file into memory
