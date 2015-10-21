@@ -73,11 +73,11 @@ else:
     app.register_blueprint(custom_code)
 
 try:
-    sys.path.append(os.getcwd())
-
+    from wallace_experiment import extra_routes
 except ImportError:
-    app.logger.info("Hmm... it seems no custom model code (custom_models.py) \
-                    assocated with this project.")
+    pass
+else:
+    app.register_blueprint(extra_routes)
 
 
 # Read psiturk.js file into memory
