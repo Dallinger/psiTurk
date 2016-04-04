@@ -286,28 +286,28 @@ def advertisement():
     else:
         raise ExperimentError('status_incorrectly_set')
 
-@app.route('/consent', methods=['GET'])
-@nocache
-def give_consent():
-    """
-    Serves up the consent in the popup window.
-    """
-    if not ('hitId' in request.args and 'assignmentId' in request.args and
-            'workerId' in request.args):
-        raise ExperimentError('hit_assign_worker_id_not_set_in_consent')
-    hit_id = request.args['hitId']
-    assignment_id = request.args['assignmentId']
-    worker_id = request.args['workerId']
-    mode = request.args['mode']
-    with open('templates/consent.html', 'r') as temp_file:
-        consent_string = temp_file.read()
-    consent_string = insert_mode(consent_string, mode)
-    return render_template_string(
-        consent_string,
-        hitid=hit_id,
-        assignmentid=assignment_id,
-        workerid=worker_id
-    )
+# @app.route('/consent', methods=['GET'])
+# @nocache
+# def give_consent():
+#     """
+#     Serves up the consent in the popup window.
+#     """
+#     if not ('hitId' in request.args and 'assignmentId' in request.args and
+#             'workerId' in request.args):
+#         raise ExperimentError('hit_assign_worker_id_not_set_in_consent')
+#     hit_id = request.args['hitId']
+#     assignment_id = request.args['assignmentId']
+#     worker_id = request.args['workerId']
+#     mode = request.args['mode']
+#     with open('templates/consent.html', 'r') as temp_file:
+#         consent_string = temp_file.read()
+#     consent_string = insert_mode(consent_string, mode)
+#     return render_template_string(
+#         consent_string,
+#         hitid=hit_id,
+#         assignmentid=assignment_id,
+#         workerid=worker_id
+#     )
 
 def get_ad_via_hitid(hit_id):
     ''' Get ad via HIT id '''
@@ -324,123 +324,123 @@ def get_ad_via_hitid(hit_id):
         else:
             return "error"
 
-@app.route('/exp', methods=['GET'])
-@nocache
-def start_exp():
-    """ Serves up the experiment applet. """
-    for arg in request.args:
-        print arg
-        try:
-            print request.args[arg]
-        except:
-            pass
+# @app.route('/exp', methods=['GET'])
+# @nocache
+# def start_exp():
+#     """ Serves up the experiment applet. """
+#     for arg in request.args:
+#         print arg
+#         try:
+#             print request.args[arg]
+#         except:
+#             pass
 
-    if not ('hitId' in request.args and 'assignmentId' in request.args and
-            'workerId' in request.args):
-        raise ExperimentError('hit_assign_worker_id_not_set_in_exp')
-    hit_id = request.args['hitId']
-    assignment_id = request.args['assignmentId']
-    worker_id = request.args['workerId']
-    mode = request.args['mode']
-    app.logger.info("Accessing /exp: %(h)s %(a)s %(w)s " % {
-        "h" : hit_id,
-        "a": assignment_id,
-        "w": worker_id
-    })
-    if hit_id[:5] == "debug":
-        debug_mode = True
-    else:
-        debug_mode = False
+#     if not ('hitId' in request.args and 'assignmentId' in request.args and
+#             'workerId' in request.args):
+#         raise ExperimentError('hit_assign_worker_id_not_set_in_exp')
+#     hit_id = request.args['hitId']
+#     assignment_id = request.args['assignmentId']
+#     worker_id = request.args['workerId']
+#     mode = request.args['mode']
+#     app.logger.info("Accessing /exp: %(h)s %(a)s %(w)s " % {
+#         "h" : hit_id,
+#         "a": assignment_id,
+#         "w": worker_id
+#     })
+#     if hit_id[:5] == "debug":
+#         debug_mode = True
+#     else:
+#         debug_mode = False
 
-    # Check first to see if this hitId or assignmentId exists.  If so, check to
-    # see if inExp is set
-    matches = Participant.query.\
-        filter(Participant.workerid == worker_id).\
-        all()
-    numrecs = len(matches)
-    if numrecs == 0:
-        # Choose condition and counterbalance
-        subj_cond, subj_counter = get_random_condcount()
+#     # Check first to see if this hitId or assignmentId exists.  If so, check to
+#     # see if inExp is set
+#     matches = Participant.query.\
+#         filter(Participant.workerid == worker_id).\
+#         all()
+#     numrecs = len(matches)
+#     if numrecs == 0:
+#         # Choose condition and counterbalance
+#         subj_cond, subj_counter = get_random_condcount()
 
-        worker_ip = "UNKNOWN" if not request.remote_addr else \
-            request.remote_addr
-        browser = "UNKNOWN" if not request.user_agent.browser else \
-            request.user_agent.browser
-        platform = "UNKNOWN" if not request.user_agent.platform else \
-            request.user_agent.platform
-        language = "UNKNOWN" if not request.user_agent.language else \
-            request.user_agent.language
+#         worker_ip = "UNKNOWN" if not request.remote_addr else \
+#             request.remote_addr
+#         browser = "UNKNOWN" if not request.user_agent.browser else \
+#             request.user_agent.browser
+#         platform = "UNKNOWN" if not request.user_agent.platform else \
+#             request.user_agent.platform
+#         language = "UNKNOWN" if not request.user_agent.language else \
+#             request.user_agent.language
 
-        # Set condition here and insert into database.
-        participant_attributes = dict(
-            assignmentid=assignment_id,
-            workerid=worker_id,
-            hitid=hit_id,
-            cond=subj_cond,
-            counterbalance=subj_counter,
-            ipaddress=worker_ip,
-            browser=browser,
-            platform=platform,
-            language=language
-        )
-        part = Participant(**participant_attributes)
-        db_session.add(part)
-        db_session.commit()
+#         # Set condition here and insert into database.
+#         participant_attributes = dict(
+#             assignmentid=assignment_id,
+#             workerid=worker_id,
+#             hitid=hit_id,
+#             cond=subj_cond,
+#             counterbalance=subj_counter,
+#             ipaddress=worker_ip,
+#             browser=browser,
+#             platform=platform,
+#             language=language
+#         )
+#         part = Participant(**participant_attributes)
+#         db_session.add(part)
+#         db_session.commit()
 
-    else:
-        # A couple possible problems here:
-        # 1: They've already done an assignment, then we should tell them they
-        #    can't do another one
-        # 2: They've already worked on this assignment, and got too far to
-        #    start over.
-        # 3: They're in the database twice for the same assignment, that should
-        #    never happen.
-        # 4: They're returning and all is well.
-        nrecords = 0
-        for record in matches:
-            other_assignment = False
-            if record.assignmentid != assignment_id:
-                other_assignment = True
-            else:
-                nrecords += 1
-        if nrecords <= 1 and not other_assignment:
-            part = matches[0]
-            # In experiment (or later) can't restart at this point
-            if part.status >= STARTED and not debug_mode:
-                raise ExperimentError('already_started_exp')
-        else:
-            if nrecords > 1:
-                app.logger.error("Error, hit/assignment appears in database \
-                                 more than once (serious problem)")
-                raise ExperimentError(
-                    'hit_assign_appears_in_database_more_than_once'
-                )
-            if other_assignment:
-                raise ExperimentError('already_did_exp_hit')
+#     else:
+#         # A couple possible problems here:
+#         # 1: They've already done an assignment, then we should tell them they
+#         #    can't do another one
+#         # 2: They've already worked on this assignment, and got too far to
+#         #    start over.
+#         # 3: They're in the database twice for the same assignment, that should
+#         #    never happen.
+#         # 4: They're returning and all is well.
+#         nrecords = 0
+#         for record in matches:
+#             other_assignment = False
+#             if record.assignmentid != assignment_id:
+#                 other_assignment = True
+#             else:
+#                 nrecords += 1
+#         if nrecords <= 1 and not other_assignment:
+#             part = matches[0]
+#             # In experiment (or later) can't restart at this point
+#             if part.status >= STARTED and not debug_mode:
+#                 raise ExperimentError('already_started_exp')
+#         else:
+#             if nrecords > 1:
+#                 app.logger.error("Error, hit/assignment appears in database \
+#                                  more than once (serious problem)")
+#                 raise ExperimentError(
+#                     'hit_assign_appears_in_database_more_than_once'
+#                 )
+#             if other_assignment:
+#                 raise ExperimentError('already_did_exp_hit')
 
-    if mode == 'sandbox' or mode == 'live':
-        # If everything goes ok here relatively safe to assume we can lookup
-        # the ad.
-        ad_id = get_ad_via_hitid(hit_id)
-        if ad_id != "error":
-            if mode == "sandbox":
-                ad_server_location = 'https://sandbox.ad.psiturk.org/complete/'\
-                    + str(ad_id)
-            elif mode == "live":
-                ad_server_location = 'https://ad.psiturk.org/complete/' +\
-                str(ad_id)
-        else:
-            raise ExperimentError('hit_not_registered_with_ad_server')
-    else:
-        ad_server_location = '/complete'
+#     if mode == 'sandbox' or mode == 'live':
+#         # If everything goes ok here relatively safe to assume we can lookup
+#         # the ad.
+#         ad_id = get_ad_via_hitid(hit_id)
+#         if ad_id != "error":
+#             if mode == "sandbox":
+#                 ad_server_location = 'https://sandbox.ad.psiturk.org/complete/'\
+#                     + str(ad_id)
+#             elif mode == "live":
+#                 ad_server_location = 'https://ad.psiturk.org/complete/' +\
+#                 str(ad_id)
+#         else:
+#             raise ExperimentError('hit_not_registered_with_ad_server')
+#     else:
+#         ad_server_location = '/complete'
 
-    return render_template(
-        'exp.html', uniqueId=part.uniqueid,
-        condition=part.cond,
-        counterbalance=part.counterbalance,
-        adServerLoc=ad_server_location,
-        mode = mode
-    )
+#     return render_template(
+#         'exp.html', uniqueId=part.uniqueid,
+#         condition=part.cond,
+#         counterbalance=part.counterbalance,
+#         adServerLoc=ad_server_location,
+#         mode = mode
+#     )
 
 @app.route('/inexp', methods=['POST'])
 def enterexp():
@@ -564,25 +564,25 @@ def quitter():
             return jsonify(**resp)
 
 # Note: This route should only used when debugging
-@app.route('/complete', methods=['GET'])
-@nocache
-def debug_complete():
-    ''' Debugging route for complete. '''
-    if not 'uniqueId' in request.args:
-        raise ExperimentError('improper_inputs')
-    else:
-        unique_id = request.args['uniqueId']
-        try:
-            user = Participant.query.\
-                filter(Participant.uniqueid == unique_id).one()
-            user.status = COMPLETED
-            user.endhit = datetime.datetime.now()
-            db_session.add(user)
-            db_session.commit()
-        except:
-            raise ExperimentError('error_setting_worker_complete')
-        else:
-            return render_template('complete.html')
+# @app.route('/complete', methods=['GET'])
+# @nocache
+# def debug_complete():
+#     ''' Debugging route for complete. '''
+#     if not 'uniqueId' in request.args:
+#         raise ExperimentError('improper_inputs')
+#     else:
+#         unique_id = request.args['uniqueId']
+#         try:
+#             user = Participant.query.\
+#                 filter(Participant.uniqueid == unique_id).one()
+#             user.status = COMPLETED
+#             user.endhit = datetime.datetime.now()
+#             db_session.add(user)
+#             db_session.commit()
+#         except:
+#             raise ExperimentError('error_setting_worker_complete')
+#         else:
+#             return render_template('complete.html')
 
 @app.route('/worker_complete', methods=['GET'])
 def worker_complete():
