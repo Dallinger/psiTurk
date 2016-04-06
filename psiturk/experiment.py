@@ -171,24 +171,22 @@ def psiturk_js():
     ''' psiTurk js route '''
     return render_template_string(PSITURK_JS_CODE)
 
-""" This route is commented out as it is overwritten by Wallace """
-
-# @app.route('/check_worker_status', methods=['GET'])
-# def check_worker_status():
-#     ''' Check worker status route '''
-#     if 'workerId' not in request.args:
-#         resp = {"status": "bad request"}
-#         return jsonify(**resp)
-#     else:
-#         worker_id = request.args['workerId']
-#         try:
-#             part = Participant.query.\
-#                 filter(Participant.workerid == worker_id).one()
-#             status = part.status
-#         except exc.SQLAlchemyError:
-#             status = NOT_ACCEPTED
-#         resp = {"status" : status}
-#         return jsonify(**resp)
+@app.route('/check_worker_status', methods=['GET'])
+def check_worker_status():
+    ''' Check worker status route '''
+    if 'workerId' not in request.args:
+        resp = {"status": "bad request"}
+        return jsonify(**resp)
+    else:
+        worker_id = request.args['workerId']
+        try:
+            part = Participant.query.\
+                filter(Participant.workerid == worker_id).one()
+            status = part.status
+        except exc.SQLAlchemyError:
+            status = NOT_ACCEPTED
+        resp = {"status" : status}
+        return jsonify(**resp)
 
 @app.route('/ad', methods=['GET'])
 @nocache
@@ -588,29 +586,27 @@ def debug_complete():
     return render_template('complete.html')
 
 
-""" This route commented out as it is overwritten by wallace """
-
-# @app.route('/worker_complete', methods=['GET'])
-# def worker_complete():
-#     ''' Complete worker. '''
-#     if not 'uniqueId' in request.args:
-#         resp = {"status": "bad request"}
-#         return jsonify(**resp)
-#     else:
-#         unique_id = request.args['uniqueId']
-#         app.logger.info("Completed experiment %s" % unique_id)
-#         try:
-#             user = Participant.query.\
-#                 filter(Participant.uniqueid == unique_id).one()
-#             user.status = COMPLETED
-#             user.endhit = datetime.datetime.now()
-#             db_session.add(user)
-#             db_session.commit()
-#             status = "success"
-#         except exc.SQLAlchemyError:
-#             status = "database error"
-#     resp = {"status": "success"}
-#     return jsonify(**resp)
+@app.route('/worker_complete', methods=['GET'])
+def worker_complete():
+    ''' Complete worker. '''
+    if not 'uniqueId' in request.args:
+        resp = {"status": "bad request"}
+        return jsonify(**resp)
+    else:
+        unique_id = request.args['uniqueId']
+        app.logger.info("Completed experiment %s" % unique_id)
+        try:
+            user = Participant.query.\
+                filter(Participant.uniqueid == unique_id).one()
+            user.status = COMPLETED
+            user.endhit = datetime.datetime.now()
+            db_session.add(user)
+            db_session.commit()
+            status = "success"
+        except exc.SQLAlchemyError:
+            status = "database error"
+    resp = {"status": "success"}
+    return jsonify(**resp)
 
 
 @app.route('/worker_submitted', methods=['GET'])
