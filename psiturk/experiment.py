@@ -584,48 +584,51 @@ def quitter():
 #         else:
 #             return render_template('complete.html')
 
+
 @app.route('/worker_complete', methods=['GET'])
 def worker_complete():
     ''' Complete worker. '''
-    if not 'uniqueId' in request.args:
-        resp = {"status": "bad request"}
-        return jsonify(**resp)
-    else:
-        unique_id = request.args['uniqueId']
-        app.logger.info("Completed experiment %s" % unique_id)
-        try:
-            user = Participant.query.\
-                filter(Participant.uniqueid == unique_id).one()
-            user.status = COMPLETED
-            user.endhit = datetime.datetime.now()
-            db_session.add(user)
-            db_session.commit()
-            status = "success"
-        except exc.SQLAlchemyError:
-            status = "database error"
-        resp = {"status" : status}
-        return jsonify(**resp)
+    # if not 'uniqueId' in request.args:
+    #     resp = {"status": "bad request"}
+    #     return jsonify(**resp)
+    # else:
+    #     unique_id = request.args['uniqueId']
+    #     app.logger.info("Completed experiment %s" % unique_id)
+    #     try:
+    #         user = Participant.query.\
+    #             filter(Participant.uniqueid == unique_id).one()
+    #         user.status = COMPLETED
+    #         user.endhit = datetime.datetime.now()
+    #         db_session.add(user)
+    #         db_session.commit()
+    #         status = "success"
+    #     except exc.SQLAlchemyError:
+    #         status = "database error"
+    resp = {"status": "success"}
+    return jsonify(**resp)
+
 
 @app.route('/worker_submitted', methods=['GET'])
 def worker_submitted():
     ''' Submit worker '''
-    if not 'uniqueId' in request.args:
-        resp = {"status": "bad request"}
-        return jsonify(**resp)
-    else:
-        unique_id = request.args['uniqueId']
-        app.logger.info("Submitted experiment for %s" % unique_id)
-        try:
-            user = Participant.query.\
-                filter(Participant.uniqueid == unique_id).one()
-            user.status = SUBMITTED
-            db_session.add(user)
-            db_session.commit()
-            status = "success"
-        except exc.SQLAlchemyError:
-            status = "database error"
-        resp = {"status" : status}
-        return jsonify(**resp)
+    # if not 'uniqueId' in request.args:
+    #     resp = {"status": "bad request"}
+    #     return jsonify(**resp)
+    # else:
+    #     unique_id = request.args['uniqueId']
+    #     app.logger.info("Submitted experiment for %s" % unique_id)
+    #     try:
+    #         user = Participant.query.\
+    #             filter(Participant.uniqueid == unique_id).one()
+    #         user.status = SUBMITTED
+    #         db_session.add(user)
+    #         db_session.commit()
+    #         status = "success"
+    #     except exc.SQLAlchemyError:
+    #         status = "database error"
+    resp = {"status": "success"}
+    return jsonify(**resp)
+
 
 # Is this a security risk?
 @app.route("/ppid")
