@@ -563,26 +563,27 @@ def quitter():
             resp = {"status": "marked as quitter"}
             return jsonify(**resp)
 
+
 # Note: This route should only used when debugging
-# @app.route('/complete', methods=['GET'])
-# @nocache
-# def debug_complete():
-#     ''' Debugging route for complete. '''
-#     if not 'uniqueId' in request.args:
-#         raise ExperimentError('improper_inputs')
-#     else:
-#         unique_id = request.args['uniqueId']
-#         try:
-#             user = Participant.query.\
-#                 filter(Participant.uniqueid == unique_id).one()
-#             user.status = COMPLETED
-#             user.endhit = datetime.datetime.now()
-#             db_session.add(user)
-#             db_session.commit()
-#         except:
-#             raise ExperimentError('error_setting_worker_complete')
-#         else:
-#             return render_template('complete.html')
+@app.route('/complete', methods=['GET'])
+@nocache
+def debug_complete():
+    ''' Debugging route for complete. '''
+    # if not 'uniqueId' in request.args:
+    #     raise ExperimentError('improper_inputs')
+    # else:
+    #     unique_id = request.args['uniqueId']
+    #     try:
+    #         user = Participant.query.\
+    #             filter(Participant.uniqueid == unique_id).one()
+    #         user.status = COMPLETED
+    #         user.endhit = datetime.datetime.now()
+    #         db_session.add(user)
+    #         db_session.commit()
+    #     except:
+    #         raise ExperimentError('error_setting_worker_complete')
+    #     else:
+    return render_template('complete.html')
 
 
 @app.route('/worker_complete', methods=['GET'])
