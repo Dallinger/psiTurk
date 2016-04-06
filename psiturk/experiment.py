@@ -589,22 +589,22 @@ def debug_complete():
 @app.route('/worker_complete', methods=['GET'])
 def worker_complete():
     ''' Complete worker. '''
-    # if not 'uniqueId' in request.args:
-    #     resp = {"status": "bad request"}
-    #     return jsonify(**resp)
-    # else:
-    #     unique_id = request.args['uniqueId']
-    #     app.logger.info("Completed experiment %s" % unique_id)
-    #     try:
-    #         user = Participant.query.\
-    #             filter(Participant.uniqueid == unique_id).one()
-    #         user.status = COMPLETED
-    #         user.endhit = datetime.datetime.now()
-    #         db_session.add(user)
-    #         db_session.commit()
-    #         status = "success"
-    #     except exc.SQLAlchemyError:
-    #         status = "database error"
+    if not 'uniqueId' in request.args:
+        resp = {"status": "bad request"}
+        return jsonify(**resp)
+    else:
+        unique_id = request.args['uniqueId']
+        app.logger.info("Completed experiment %s" % unique_id)
+        try:
+            user = Participant.query.\
+                filter(Participant.uniqueid == unique_id).one()
+            user.status = COMPLETED
+            user.endhit = datetime.datetime.now()
+            db_session.add(user)
+            db_session.commit()
+            status = "success"
+        except exc.SQLAlchemyError:
+            status = "database error"
     resp = {"status": "success"}
     return jsonify(**resp)
 
