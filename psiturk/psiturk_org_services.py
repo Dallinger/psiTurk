@@ -35,7 +35,7 @@ class PsiturkOrgServices(object):
             print 'Sorry, psiTurk Credentials invalid.\nYou will only be able'\
                 + 'to test experiments locally until you enter\nvalid '\
                 + 'credentials in the psiTurk Access section of ' \
-                + '~/.psiturkconfig.\n  Get your credentials at '\
+                + '~/.wallaceconfig.\n  Get your credentials at '\
                 + 'https://www.psiturk.org/login.\n'
 
     def check_credentials(self):

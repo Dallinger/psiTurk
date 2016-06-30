@@ -13,9 +13,9 @@ DEFAULT_GLOBAL_CONFIG_FILE = os.path.join(os.path.dirname(__file__), \
 
 # If working in OpenShift, global config file lives in data directory
 if 'OPENSHIFT_SECRET_TOKEN' in os.environ:
-    GLOBAL_CONFIG_PATH = os.environ['OPENSHIFT_DATA_DIR'] + ".psiturkconfig"
+    GLOBAL_CONFIG_PATH = os.environ['OPENSHIFT_DATA_DIR'] + ".wallaceconfig"
 else:
-    GLOBAL_CONFIG_PATH = "~/.psiturkconfig"
+    GLOBAL_CONFIG_PATH = "~/.wallaceconfig"
 
 GLOBAL_CONFIG_FILE = os.path.expanduser(GLOBAL_CONFIG_PATH)
 EXAMPLE_TARGET = os.path.join(os.curdir, "psiturk-example")
@@ -39,8 +39,8 @@ def setup_example():
         os.rename('custom.py.txt', 'custom.py')
 
         if not os.path.exists(GLOBAL_CONFIG_FILE):
-            print "No '.psiturkconfig' file found in your home \
-                directory.\nCreating default '~/.psiturkconfig' file."
+            print "No '.wallaceconfig' file found in your home \
+                directory.\nCreating default '~/.wallaceconfig' file."
             file_util.copy_file(DEFAULT_GLOBAL_CONFIG_FILE, GLOBAL_CONFIG_FILE)
 
 

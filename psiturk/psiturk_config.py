@@ -3,7 +3,7 @@ from distutils import file_util
 from ConfigParser import SafeConfigParser
 
 class PsiturkConfig(SafeConfigParser):
-    def __init__(self, localConfig="config.txt", globalConfigName=".psiturkconfig", **kwargs):
+    def __init__(self, localConfig="config.txt", globalConfigName=".wallaceconfig", **kwargs):
 
         # If working in OpenShift, move global config file in data directory (has access rights)
         if 'OPENSHIFT_SECRET_TOKEN' in os.environ:
@@ -30,7 +30,7 @@ class PsiturkConfig(SafeConfigParser):
             exit()
         self.localParser.read( self.localFile)
         if not os.path.exists(self.globalFile):
-            print "No '.psiturkconfig' file found in your home directory.\nCreating default '~/.psiturkconfig' file."
+            print "No '.wallaceconfig' file found in your home directory.\nCreating default '~/.wallaceconfig' file."
             file_util.copy_file(global_defaults_file, self.globalFile)
         self.globalParser.read(self.globalFile)
         # read default global and local, then user's global and local. This way
