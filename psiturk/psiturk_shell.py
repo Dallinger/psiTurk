@@ -503,7 +503,7 @@ class PsiturkNetworkShell(PsiturkShell):
 
         self.sandbox_hits = 0
         self.live_hits = 0
-        self.tally_hits()
+        # self.tally_hits()
         PsiturkShell.__init__(self, config, server)
 
         # Prevents running of commands by abbreviation
