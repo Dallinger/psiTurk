@@ -18,7 +18,6 @@ import atexit
 
 from cmd2 import Cmd
 from docopt import docopt, DocoptExit
-import readline
 
 import webbrowser
 import sqlalchemy as sa
@@ -183,15 +182,10 @@ class PsiturkShell(Cmd, object):
     def preloop(self):
         ''' Keep persistent command history. '''
         open('.psiturk_history', 'a').close()  # create file if it doesn't exist
-        readline.read_history_file('.psiturk_history')
-        for i in range(readline.get_current_history_length()):
-            if readline.get_history_item(i) is not None:
-                self.history.append(readline.get_history_item(i))
         Cmd.preloop(self)
 
     def postloop(self):
         ''' Save history on exit. '''
-        readline.write_history_file('.psiturk_history')
         Cmd.postloop(self)
 
     def onecmd_plus_hooks(self, line):
@@ -1743,16 +1737,6 @@ class PsiturkNetworkShell(PsiturkShell):
         print("New tunnel ready. Run 'tunnel open' to start.")
 
 def run(cabinmode=False, script=None):
-    using_libedit = 'libedit' in readline.__doc__
-    if using_libedit:
-        print colorize('\n'.join([
-            'libedit version of readline detected.',
-            'readline will not be well behaved, which may cause all sorts',
-            'of problems for the psiTurk shell. We highly recommend installing',
-            'the gnu version of readline by running "sudo pip install gnureadline".',
-            'Note: "pip install readline" will NOT work because of how the OSX',
-            'pythonpath is structured.'
-        ]), 'red', False)
     sys.argv = [sys.argv[0]] # Drop arguments which were already processed in command_line.py
     #opt = docopt(__doc__, sys.argv[1:])
     config = PsiturkConfig()
