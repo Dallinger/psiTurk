@@ -17,7 +17,7 @@ if __name__ == "__main__":
     fp.close()
 
     setup_args = dict(
-        name = "PsiTurk",
+        name = "psiturk-dallinger",
         version = version_number,
         packages = ["psiturk"],
         include_package_data = True,
