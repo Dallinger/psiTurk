@@ -30,11 +30,11 @@ There are some idiosyncrasies involved in running psiTurk using OpenShift that y
 
 * You don't need to use 'sudo' to install psiTurk. Simply "pip install" from either pypi or github (see `Installation Steps <install.html#installation-steps>`__). "pip" is already included in your python application, so you don't need to install it.
 
-* You do not have root access on OpenShift, so rather than placing the ".wallaceconfig" file in the root directory, psiTurk automatically stores it in "/app-root/data". So that's where you have to enter your AWS and psiTurk access keys. (Remember, the file gets created only after psiturk is run for the first time)
+* You do not have root access on OpenShift, so rather than placing the ".dallingerconfig" file in the root directory, psiTurk automatically stores it in "/app-root/data". So that's where you have to enter your AWS and psiTurk access keys. (Remember, the file gets created only after psiturk is run for the first time)
 
 * Similarly, in order to make any changes or add files (e.g to start a new project), you need to cd into a directory where you have permission to do so. For example, you could use "/app-root/repo/". 
 
-* Note that on OpenShift, you can only edit text files (like ".wallaceconfig" or "config.txt") inside the terminal. If you don't know how to do that, one simple way is to use "nano", for example:
+* Note that on OpenShift, you can only edit text files (like ".dallingerconfig" or "config.txt") inside the terminal. If you don't know how to do that, one simple way is to use "nano", for example:
 ::
 
     nano config.txt # edit file, then exit with Ctr+X
@@ -77,7 +77,7 @@ To put it all together, this is what your first OpenShift session could look lik
     $ nano config.txt # add IP and port number (8080) to config file and exit
     $ psiturk # Start psiturk
 
-Before you can go live, remember to change the global config file ("/app-root/data/.wallaceconfig").
+Before you can go live, remember to change the global config file ("/app-root/data/.dallingerconfig").
 
 
 

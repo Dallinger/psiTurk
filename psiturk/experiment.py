@@ -73,7 +73,7 @@ else:
     app.register_blueprint(custom_code)
 
 try:
-    from wallace_experiment import extra_routes
+    from dallinger_experiment import extra_routes
 except ImportError:
     pass
 else:

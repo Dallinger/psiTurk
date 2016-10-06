@@ -69,10 +69,10 @@ Configure your global **psiTurk** options
 -----------------------------------------
 When you run ``psiturk-setup-example`` the first time,
 a `global configuration file <configuration.html#global-configuration-file>`__ 
-is created in your local directory named ``~/.wallaceconfig``.
+is created in your local directory named ``~/.dallingerconfig``.
 In order to get access to all the psiTurk features you need to enter credentials 
 for accessing Amazon Web Services and psiturk.org. Both of these can be added 
-to `~/.wallaceconfig`.
+to `~/.dallingerconfig`.
 
 To access Amazon Mechanical Turk and other Amazon Web Services features you needs 
 to enter your AWS Credentials (see these instructions for details). You can leave 

@@ -6,7 +6,7 @@ Configuration files contain information needed to run an experiment
 as well as options which control how **psiTurk** behaves.
 
 The first file is a "global" configuration file and resides
-in your home folder (`~/.wallaceconfig`).  The second file is
+in your home folder (`~/.dallingerconfig`).  The second file is
 a "local" configuration file and resides in the folder of
 each experiment.
 
@@ -30,7 +30,7 @@ Global configuration file
 --------------------------
 
 The global configuration file resides in your
-home folder in a "dot" file (`/.wallaceconfig`).  This
+home folder in a "dot" file (`/.dallingerconfig`).  This
 file is created automatically either the first time you
 run the `psiturk` command line tool or the first time
 you run `psiturk-setup-example`.  The default file looks
@@ -115,9 +115,9 @@ expects.
    have different values in different folders. Likewise, if you wanted
    to have the same `organization_name` in all your experiments, you
    could add a ``[HIT Configuration]`` section with an
-   `organization_name` field to your `~/.wallaceconfig` file. Keep in
+   `organization_name` field to your `~/.dallingerconfig` file. Keep in
    mind that **settings in the local `config.txt` file always override
-   settings in the global `~/.wallaceconfig` file**.
+   settings in the global `~/.dallingerconfig` file**.
 
 .. toctree::
 

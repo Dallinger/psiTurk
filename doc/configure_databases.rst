@@ -143,7 +143,7 @@ data center.  To see a list of available regions type::
 	[psiTurk server:off mode:sdbx #HITs:0]$ db aws_list_regions
 
 This command will also show which region you are currently using.  The
-region is also set in your `~/.wallaceconfig` `Global configuration file <configuration.html#global-configuration-file>`__.
+region is also set in your `~/.dallingerconfig` `Global configuration file <configuration.html#global-configuration-file>`__.
 You can also get the current region by typing::
 
 	[psiTurk server:off mode:sdbx #HITs:0]$ db aws_get_region

@@ -841,7 +841,7 @@ class PsiturkNetworkShell(PsiturkShell):
             print '\n'.join(['*****************************',
                             '  Sorry, your psiTurk Credentials are invalid.\n ',
                             '  You cannot create ads and hits until you enter valid credentials in ',
-                            '  the \'psiTurk Access\' section of ~/.wallaceconfig.  You can obtain your',
+                            '  the \'psiTurk Access\' section of ~/.dallingerconfig.  You can obtain your',
                             '  credentials or sign up at https://www.psiturk.org/login.\n'])
             return
 
@@ -849,7 +849,7 @@ class PsiturkNetworkShell(PsiturkShell):
             print '\n'.join(['*****************************',
                              '  Sorry, your AWS Credentials are invalid.\n ',
                              '  You cannot create ads and hits until you enter valid credentials in ',
-                             '  the \'AWS Access\' section of ~/.wallaceconfig.  You can obtain your ',
+                             '  the \'AWS Access\' section of ~/.dallingerconfig.  You can obtain your ',
                              '  credentials via the Amazon AMT requester website.\n'])
             return
 

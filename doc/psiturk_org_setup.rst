@@ -34,7 +34,7 @@ login to psiturk.org (`https://psiturk.org/login <https://psiturk.org/login>`__)
 On the main dashboard page, select the blue dropdown
 menu on the top right hand side of the page (shows your
 email address) and select "API Keys".  
-Copy these keys into your ``~/.wallaceconfig`` file.
+Copy these keys into your ``~/.dallingerconfig`` file.
 
 .. image:: images/docs_psiturk_api_keys.png
 	:align: center
@@ -46,5 +46,5 @@ pressing the "Regenerate API Keys" button.
 	:align: center
 
 At that point any old keys will no longer work, and you will
-need to update your ``~/.wallaceconfig`` file again.  This
+need to update your ``~/.dallingerconfig`` file again.  This
 way 
