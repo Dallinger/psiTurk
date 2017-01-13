@@ -951,7 +951,7 @@ class PsiturkNetworkShell(PsiturkShell):
             hit_config = {
                 "ad_location": self.web_services.get_ad_url(ad_id, int(self.sandbox)),
                 "approve_requirement": self.config.get('HIT Configuration', 'Approve_Requirement'),
-                "us_only": self.config.getboolean('HIT Configuration', 'US_only'),
+                "us_only": self.config.get('HIT Configuration', 'US_only'),
                 "lifetime": datetime.timedelta(hours=self.config.getfloat('HIT Configuration', 'lifetime')),
                 "max_assignments": numWorkers,
                 "title": self.config.get('HIT Configuration', 'title'),
@@ -1749,7 +1749,7 @@ def run(cabinmode=False, script=None):
         amt_services = MTurkServices(
             os.getenv('aws_access_key_id', config.get("AWS Access", "aws_access_key_id")),
             os.getenv('aws_secret_access_key', config.get("AWS Access", "aws_secret_access_key")),
-            config.getboolean('Shell Parameters', 'launch_in_sandbox_mode'))
+            config.get('Shell Parameters', 'launch_in_sandbox_mode'))
         aws_rds_services = RDSServices(
             os.getenv('aws_access_key_id', config.get("AWS Access", "aws_access_key_id")),
             os.getenv('aws_secret_access_key', config.get("AWS Access", "aws_secret_access_key")),
@@ -1759,7 +1759,7 @@ def run(cabinmode=False, script=None):
             os.getenv('psiturk_secret_access_id', config.get("psiTurk Access", "psiturk_secret_access_id")))
         shell = PsiturkNetworkShell(
             config, amt_services, aws_rds_services, web_services, server, \
-            config.getboolean('Shell Parameters', 'launch_in_sandbox_mode'))
+            config.get('Shell Parameters', 'launch_in_sandbox_mode'))
 
     if script:
         with open(script, 'r') as temp_file:
