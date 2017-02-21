@@ -2,7 +2,7 @@ argparse==1.2.1
 Flask==0.10.1
 SQLAlchemy==1.1.4
 gunicorn==18.0
-boto==2.15.0
+boto==2.46.1
 cmd2==0.6.7
 docopt==0.6.1
 requests==2.2.1
